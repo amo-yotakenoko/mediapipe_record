@@ -1,0 +1,17 @@
+.container {
+    position: relative;          /* 子要素の絶対位置を基準にする */
+      width: 100%;                 /* 画面幅に合わせる */
+      height: 100vh;               /* ビューポートの高さに合わせる */
+      max-width: 1280px;           /* 最大幅を指定 */
+      margin: auto;                /* 中央に配置 */
+      background-color: black;  
+}
+
+.input_video, .output_canvas {
+  position: absolute;          /* 重ね合わせるための設定 */
+  top: 0;
+  left: 0;
+  width: 100%;                 /* コンテナに合わせてサイズ調整 */
+  height: 100%;
+  object-fit: cover;           /* ビデオのアスペクト比を維持 */
+}
