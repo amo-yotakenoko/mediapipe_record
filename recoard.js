@@ -68,8 +68,8 @@ function onResults(results) {
         onFrame: async () => {
             await holistic.send({ image: videoElement });
         },
-        width: 1280,
-        height: 720
+        // width: 1280,
+        // height: 720
     });
     camera.start();
 
