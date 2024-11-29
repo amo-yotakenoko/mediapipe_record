@@ -15,14 +15,14 @@
 </head>
 
 <body>
-    <div>startを押して動いた後にstopを押してください
+    <div>startを押して動いた後にstopを押してください<br>読み込みに30秒ほどかかります。
         、右にある数字が記録されたフレームの数です
     </div>
     <button id="start">start</button>
     <button id="stop">stop</button>
     <div id="length"></div>
     <div class="container">
-        <video class="input_video"></video>
+        <video class="input_video" autoplay muted playsinline></video>
         <canvas class="output_canvas" width="1280px" height="720px"></canvas>
     </div>
 </body>
