@@ -67,6 +67,8 @@ function onResults(results) {
     const camera = new Camera(videoElement, {
         onFrame: async () => {
             await holistic.send({ image: videoElement });
+            canvasElement.width = videoElement.videoWidth;
+         canvasElement.height = videoElement.videoHeight;
         },
         // width: 1280,
         // height: 720
