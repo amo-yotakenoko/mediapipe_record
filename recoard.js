@@ -70,9 +70,27 @@ function onResults(results) {
     const camera = new Camera(videoElement, {
         onFrame: async () => {
             await holistic.send({ image: videoElement });
-        //     console.log( videoElement.videoWidth,videoElement.videoHeight)
-        //     canvasElement.width = videoElement.videoWidth;
-        //  canvasElement.height = videoElement.videoHeight;
+ const videoAspectRatio = videoElement.videoWidth / videoElement.videoHeight;
+        
+        // ビデオのアスペクト比を保持しつつ、スマホに合わせてcanvasのサイズを変更
+        const screenWidth = window.innerWidth;
+        const screenHeight = window.innerHeight;
+
+        let newWidth, newHeight;
+
+        if (screenWidth / screenHeight > videoAspectRatio) {
+            // 画面の幅に合わせる
+            newHeight = screenHeight;
+            newWidth = screenHeight * videoAspectRatio;
+        } else {
+            // 画面の高さに合わせる
+            newWidth = screenWidth;
+            newHeight = screenWidth / videoAspectRatio;
+        }
+
+        // 新しいサイズをcanvasに適用
+        canvasElement.width = newWidth;
+        canvasElement.height = newHeight;
         },
         // width: 1280,
         // height: 720
