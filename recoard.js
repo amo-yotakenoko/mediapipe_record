@@ -5,10 +5,19 @@ window.onload = function () {
     const videoElement = document.getElementsByClassName('input_video')[0];
     const canvasElement = document.getElementsByClassName('output_canvas')[0];
     const canvasCtx = canvasElement.getContext('2d');
-    canvasCtx.fillStyle = '#FF0000'; // 塗りつぶし色を赤に設定
-    canvasCtx.fillRect(0, 0, canvasElement.width, canvasElement.height);
+    // canvasCtx.fillStyle = '#FF0000'; // 塗りつぶし色を赤に設定
+    // canvasCtx.fillRect(0, 0, canvasElement.width, canvasElement.height);
     console.log("onload")
     function onResults(results) {
+
+        const rect = canvasElement.getBoundingClientRect();
+
+        // ピクセル解像度をCSSサイズに合わせる
+        canvasElement.width = rect.width * window.devicePixelRatio;
+        canvasElement.height = rect.height * window.devicePixelRatio;
+
+
+
         // canvasCtx.save();
         canvasCtx.clearRect(0, 0, canvasElement.width, canvasElement.height);
         console.log(results)
@@ -76,33 +85,33 @@ window.onload = function () {
             await holistic.send({ image: videoElement });
 
         },
-        width: 1280,
-        height: 720
+        // width: 1280,
+        // height: 720
     });
 
 
     camera.start();
 
-    setTimeout(() => {
+    // setTimeout(() => {
 
-        const videoAspectRatio = videoElement.videoWidth / videoElement.videoHeight;
+    //     const videoAspectRatio = videoElement.videoWidth / videoElement.videoHeight;
 
-        // ビデオのアスペクト比を保持しつつ、スマホに合わせてcanvasのサイズを変更
-        const screenWidth = window.innerWidth;
-        const screenHeight = window.innerHeight;
+    //     // ビデオのアスペクト比を保持しつつ、スマホに合わせてcanvasのサイズを変更
+    //     const screenWidth = window.innerWidth;
+    //     const screenHeight = window.innerHeight;
 
-        let newWidth, newHeight;
+    //     let newWidth, newHeight;
 
-        if (screenWidth / screenHeight > videoAspectRatio) {
-            // 画面の幅に合わせる
-            newHeight = screenHeight;
-            newWidth = screenHeight * videoAspectRatio;
-        } else {
-            // 画面の高さに合わせる
-            newWidth = screenWidth;
-            newHeight = screenWidth / videoAspectRatio;
-        }
-    }, 1000);
+    //     if (screenWidth / screenHeight > videoAspectRatio) {
+    //         // 画面の幅に合わせる
+    //         newHeight = screenHeight;
+    //         newWidth = screenHeight * videoAspectRatio;
+    //     } else {
+    //         // 画面の高さに合わせる
+    //         newWidth = screenWidth;
+    //         newHeight = screenWidth / videoAspectRatio;
+    //     }
+    // }, 1000);
 
 
     // 新しいサイズをcanvasに適用
