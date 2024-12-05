@@ -7,9 +7,6 @@ const canvasElement = document.getElementsByClassName('output_canvas')[0];
 const canvasCtx = canvasElement.getContext('2d');
 
 function onResults(results) {
-
-      canvasElement.width = videoElement.videoWidth;
-         canvasElement.height = videoElement.videoHeight;
     canvasCtx.save();
     canvasCtx.clearRect(0, 0, canvasElement.width, canvasElement.height);
     // console.log(JSON.stringify(results))
