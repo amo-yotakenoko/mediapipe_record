@@ -13,8 +13,8 @@ window.onload = function () {
         const rect = canvasElement.getBoundingClientRect();
 
         // ピクセル解像度をCSSサイズに合わせる
-        canvasElement.width = rect.width * window.devicePixelRatio;
-        canvasElement.height = rect.height * window.devicePixelRatio;
+        canvasElement.width = rect.width * window.devicePixelRatio * 0.5;
+        canvasElement.height = rect.height * window.devicePixelRatio * 0.5;
 
 
 
@@ -79,6 +79,11 @@ window.onload = function () {
         minTrackingConfidence: 0.5
     });
     holistic.onResults(onResults);
+
+    const stream = navigator.mediaDevices.getUserMedia({
+        video: { facingMode: "environment" }
+    });
+    videoElement.srcObject = stream;
 
     const camera = new Camera(videoElement, {
         onFrame: async () => {
