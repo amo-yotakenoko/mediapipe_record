@@ -80,10 +80,10 @@ window.onload = function () {
     });
     holistic.onResults(onResults);
 
-    const stream = navigator.mediaDevices.getUserMedia({
-        video: { facingMode: "environment" }
-    });
-    videoElement.srcObject = stream;
+    // const stream = navigator.mediaDevices.getUserMedia({
+    //     video: { facingMode: "environment" }
+    // });
+    // videoElement.srcObject = stream;
 
     const camera = new Camera(videoElement, {
         onFrame: async () => {
