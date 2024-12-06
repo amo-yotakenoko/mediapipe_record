@@ -12,6 +12,7 @@ window.onload = function () {
     // const videoElement = document.getElementsByClassName('input_video')[0];
     const canvasElement = document.getElementsByClassName('output_canvas')[0];
     const canvasCtx = canvasElement.getContext('2d');
+     const slider = document.getElementById('slider');
     // canvasCtx.fillStyle = '#FF0000'; // 塗りつぶし色を赤に設定
     // canvasCtx.fillRect(0, 0, canvasElement.width, canvasElement.height);
     console.log("onload")
@@ -99,12 +100,7 @@ window.onload = function () {
         });
 
  
-    
-    setInterval(() => {
-        console.log("loop")
-          holistic.send({ image: videoElement })
-   
-  }, 5);
+
     
 
     // const camera = new Camera(videoElement, {
@@ -117,7 +113,14 @@ window.onload = function () {
     // });
     // camera.start();
 
-
+   function loop(){
+       console.log("loop")
+       holistic.send({ image: videoElement })
+       //    requestAnimationFrame(loop);
+       setTimeout(loop, slider.value);
+    }
+            setTimeout(loop, 1000);
+   
 
     setTimeout(() => {
 
@@ -141,6 +144,10 @@ window.onload = function () {
         // 新しいサイズをcanvasに適用
         canvasElement.width = newWidth;
         canvasElement.height = newHeight;
+
+
+    
+
     }, 1000);
 
 
