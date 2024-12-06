@@ -1,8 +1,15 @@
 let record = []
 let recoading = false
+
+var cameraFacing = false;
+
+
+
+
+
 window.onload = function () {
     // alert("ページが読み込まれました！");
-    const videoElement = document.getElementsByClassName('input_video')[0];
+    // const videoElement = document.getElementsByClassName('input_video')[0];
     const canvasElement = document.getElementsByClassName('output_canvas')[0];
     const canvasCtx = canvasElement.getContext('2d');
     // canvasCtx.fillStyle = '#FF0000'; // 塗りつぶし色を赤に設定
@@ -80,48 +87,63 @@ window.onload = function () {
     });
     holistic.onResults(onResults);
 
-    // const stream = navigator.mediaDevices.getUserMedia({
-    //     video: { facingMode: "environment" }
+
+
+  const videoElement = document.querySelector('video');
+    navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } })
+        .then(stream => {
+            videoElement.srcObject = stream;
+        })
+        .catch(error => {
+            console.error("Error accessing the camera:", error);
+        });
+
+ 
+    
+    setInterval(() => {
+        console.log("loop")
+          holistic.send({ image: videoElement })
+   
+  }, 5);
+    
+
+    // const camera = new Camera(videoElement, {
+    //     onFrame: async () => {
+    //         await holistic.send({ image: videoElement });
+
+    //     },
+    //     // width: 1280,
+    //     // height: 720
     // });
-    // videoElement.srcObject = stream;
-
-    const camera = new Camera(videoElement, {
-        onFrame: async () => {
-            await holistic.send({ image: videoElement });
-
-        },
-        // width: 1280,
-        // height: 720
-    });
+    // camera.start();
 
 
-    camera.start();
 
-    // setTimeout(() => {
+    setTimeout(() => {
 
-    //     const videoAspectRatio = videoElement.videoWidth / videoElement.videoHeight;
+        const videoAspectRatio = videoElement.videoWidth / videoElement.videoHeight;
 
-    //     // ビデオのアスペクト比を保持しつつ、スマホに合わせてcanvasのサイズを変更
-    //     const screenWidth = window.innerWidth;
-    //     const screenHeight = window.innerHeight;
+        // ビデオのアスペクト比を保持しつつ、スマホに合わせてcanvasのサイズを変更
+        const screenWidth = window.innerWidth;
+        const screenHeight = window.innerHeight;
 
-    //     let newWidth, newHeight;
+        let newWidth, newHeight;
 
-    //     if (screenWidth / screenHeight > videoAspectRatio) {
-    //         // 画面の幅に合わせる
-    //         newHeight = screenHeight;
-    //         newWidth = screenHeight * videoAspectRatio;
-    //     } else {
-    //         // 画面の高さに合わせる
-    //         newWidth = screenWidth;
-    //         newHeight = screenWidth / videoAspectRatio;
-    //     }
-    // }, 1000);
+        if (screenWidth / screenHeight > videoAspectRatio) {
+            // 画面の幅に合わせる
+            newHeight = screenHeight;
+            newWidth = screenHeight * videoAspectRatio;
+        } else {
+            // 画面の高さに合わせる
+            newWidth = screenWidth;
+            newHeight = screenWidth / videoAspectRatio;
+        }
+        // 新しいサイズをcanvasに適用
+        canvasElement.width = newWidth;
+        canvasElement.height = newHeight;
+    }, 1000);
 
 
-    // 新しいサイズをcanvasに適用
-    canvasElement.width = newWidth;
-    canvasElement.height = newHeight;
 
 
     document.getElementById('start').addEventListener('click', () => {
